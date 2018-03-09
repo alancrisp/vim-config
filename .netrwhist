@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/home/alan/repos/courier/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver'
+let g:netrw_dirhist_2='/home/alan/repos/courier/vendor/doctrine/dbal/lib/Doctrine/DBAL'
+let g:netrw_dirhist_3='/home/alan/Desktop/test/ebuyer_dev_test/app/public'

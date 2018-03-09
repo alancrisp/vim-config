@@ -1,0 +1,502 @@
+snippet test
+	<?php
+	namespace ${1};
+
+	use ${2};
+	use PHPUnit\Framework\TestCase;
+	${3}
+	class ${4}Test extends TestCase
+	{
+	    ${5}
+	}
+snippet factory
+	<?php
+	namespace ${1};
+
+	use Interop\Container\ContainerInterface;
+	use Zend\ServiceManager\Factory\FactoryInterface;
+
+	class ${2}Factory implements FactoryInterface
+	{
+	    /**
+	     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	     */
+	    public function __invoke(ContainerInterface $container, $requestedName, array $options = null): ${3}
+	    {
+	        ${4}
+	    }
+	}
+snippet factorytest
+	<?php
+	namespace ${1};
+
+	use ${2};
+	use ${3}Factory;
+	use PHPUnit\Framework\TestCase;
+	use Zend\ServiceManager\Factory\FactoryInterface;
+	use Zend\ServiceManager\ServiceManager;
+
+	class ${4}FactoryTest extends TestCase
+	{
+	    private $factory;
+	    private $serviceManager;
+
+	    protected function setUp()
+	    {
+	        $this->factory        = new ${5}();
+	        $this->serviceManager = new ServiceManager();${6}
+	    }
+
+	    public function testImplementsFactory()
+	    {
+	        $this->assertInstanceOf(FactoryInterface::class, $this->factory);
+	    }
+
+	    public function testCreates${7}()
+	    {
+	        $factory = $this->factory;
+	        $this->assertInstanceOf(${8}::class, $factory($this->serviceManager, ${9}::class));
+	    }
+	}
+snippet middleware
+	<?php
+	namespace ${1};
+
+	${2}
+	use Psr\Http\Message\ServerRequestInterface as Request;
+	use Psr\Http\Message\ResponseInterface as Response;
+	use Zend\Stratigility\MiddlewareInterface;
+
+	class ${3} implements MiddlewareInterface
+	{
+	    public function __invoke(Request $request, Response $response, callable $next = null): Response
+	    {
+	        ${4}
+	    }
+	}
+snippet dal
+	<?php
+	namespace ${1};
+
+	use Doctrine\DBAL\Connection;${2}
+
+	class ${3}
+	{
+	    /**
+	     * @var Connection
+	     */
+	    private $dbConn;
+
+	    /**
+	     * Constructor
+	     *
+	     * @param Connection $dbConn
+	     */
+	    public function __construct(Connection $dbConn)
+	    {
+	        $this->dbConn = $dbConn;
+	    }
+
+	    ${4}
+	}
+snippet daltest
+	<?php
+	namespace ${1};
+	
+	${2}
+	use Ebuyer\Doctrine\Dbal\DbalTestTrait;
+	use PHPUnit\Framework\TestCase;
+	
+	class ${3}Test extends TestCase
+	{
+	    use DbalTestTrait;
+	
+	    private $dbConn;
+	    private $dal;
+	
+	    protected function setUp()
+	    {
+	        $this->dbConn = $this->createMockDbConnection();
+	        $this->dal    = new ${4}($this->dbConn);
+	    }
+
+	    ${5}
+	}
+snippet dalfactorytest
+	<?php
+	namespace ${1};
+
+	use ${2} as ${3}Dal;
+	use ${4}Factory;
+	use Ebuyer\Doctrine\Dbal\DbalPluginManager;
+	use Ebuyer\Doctrine\Dbal\DbalTestTrait;
+	use PHPUnit\Framework\TestCase;
+	use Zend\ServiceManager\Factory\FactoryInterface;
+	use Zend\ServiceManager\ServiceManager;
+
+	class ${5}FactoryTest extends TestCase
+	{
+	    use DbalTestTrait;
+	
+	    private $factory;
+	
+	    protected function setUp()
+	    {
+	        $this->factory        = new ${6}Factory();
+	        $this->serviceManager = new ServiceManager();
+	    }
+	
+	    public function testImplementsFactory()
+	    {
+	        $this->assertInstanceOf(FactoryInterface::class, $this->factory);
+	    }
+	
+	    public function testCreates${7}()
+	    {
+	        $dbalManager = new DbalPluginManager($this->serviceManager);
+	        $dbalManager->setService('shipping', $this->createMockDbConnection());
+	        $this->serviceManager->setService('DbalManager', $dbalManager);
+	
+	        $factory = $this->factory;
+	        $this->assertInstanceOf(${8}Dal::class, $factory($this->serviceManager, ${9}Dal::class));
+	    }
+	}
+snippet igufp
+	/**
+	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+	 */
+snippet zf2factory
+	<?php
+	namespace ${1};
+
+	use Zend\ServiceManager\FactoryInterface;
+	use Zend\ServiceManager\ServiceLocatorInterface;
+
+	class ${2}Factory implements FactoryInterface
+	{
+	    public function createService(ServiceLocatorInterface ${3})
+	    {
+	        ${4}
+	    }
+	}
+snippet zf2factorytest
+	<?php
+	namespace ${1};
+
+	use ${2};
+	use Zend\ServiceManager\ServiceManager;
+
+	class ${3}FactoryTest extends \PHPUnit_Framework_TestCase
+	{
+	    private $factory;
+	    private $serviceManager;
+
+	    public function setUp()
+	    {
+	        $this->factory        = new ${4}Factory();
+	        $this->serviceManager = new ServiceManager();
+	    }
+
+	    public function testCreates${5}()
+	    {
+	        $this->assertInstanceOf(${6}, $this->create());
+	    }
+
+	    private function create()
+	    {
+	        return $this->factory->createService($this->serviceManager);
+	    }
+	}
+snippet restcontroller
+	<?php
+	namespace ${1}\Controller${2};
+
+	use Zend\Mvc\Controller\AbstractRestfulController;
+	use Zend\View\Model\JsonModel;
+
+	class ${3}Controller extends AbstractRestfulController
+	{
+	    ${4}
+	}
+snippet oldtest
+	<?php
+	namespace ${1};
+
+	use ${2};
+
+	class ${3}Test extends \PHPUnit_Framework_TestCase
+	{
+	    private $${4};
+
+	    public function setUp()
+	    {
+	        ${5}
+	    }
+	}
+snippet interface
+	<?php
+	namespace ${1};
+	${2}
+	interface ${3}
+	{
+	    ${4}
+	}
+snippet queryhandler
+	<?php
+	namespace Neuron\${1};
+
+	use Neuron\Query\QueryHandlerInterface;
+	use Neuron\Query\QueryInterface;
+	use Neuron\Query\Result;
+
+	class QueryHandler implements QueryHandlerInterface
+	{
+	    public function run(QueryInterface $query)
+	    {
+	        ${2}
+
+	        return new Result(true);
+	    }
+	}
+snippet commandhandler
+	<?php
+	namespace Neuron\${1};
+
+	use Neuron\Command\CommandHandlerInterface;
+	use Neuron\Command\CommandInterface;
+	use Neuron\Command\Result;
+
+	class CommandHandler implements CommandHandlerInterface
+	{
+	    public function run(CommandInterface $command)
+	    {
+	        ${2}
+
+	        return new Result(true);
+	    }
+	}
+snippet commandhandlertest
+	<?php
+	namespace ${1};
+
+	use NeuronTest\InputFilter\InputFilterFake;
+	use Neuron\Command\Command;
+	use ${2}\CommandHandler;
+	use Zend\Log\Logger;
+
+	class CommandHandlerTest extends \PHPUnit_Framework_TestCase
+	{
+	    private $inputFilter;
+	    private $logger;
+	    private $command;
+	    private $handler;
+
+	    public function setUp()
+	    {
+	        $this->inputFilter = new InputFilterFake();
+	        $this->logger      = new Logger(array('writers' => array(array('name' => 'mock'))));
+	        $this->command     = new Command();
+	        $this->handler     = new CommandHandler(
+	            $this->inputFilter,
+	            $this->logger
+	        );
+	    }
+
+	    public function testImplementsCommandHandlerInterface()
+	    {
+	        $this->assertInstanceOf('Neuron\Command\CommandHandlerInterface', $this->handler);
+	    }
+
+	    ${3}
+
+	    private function runHandler()
+	    {
+	        return $this->handler->run($this->command);
+	    }
+	}
+snippet iffactory
+	<?php
+	namespace ${1};
+
+	use Zend\ServiceManager\FactoryInterface;
+	use Zend\ServiceManager\ServiceLocatorInterface;
+
+	class InputFilterFactory implements FactoryInterface
+	{
+	    public function createService(ServiceLocatorInterface $inputFilterManager)
+	    {
+	        $inputFilter  = $inputFilterManager->get('InputFilter');
+	        $inputFactory = $inputFilter->getFactory();
+
+	        ${2}
+
+	        return $inputFilter;
+	    }
+	}
+snippet iftest
+	<?php
+	namespace ${1};
+
+	use ${2}\InputFilterFactory;
+	use Zend\InputFilter\InputFilterPluginManager;
+
+	class InputFilterFactoryTest extends \PHPUnit_Framework_TestCase
+	{
+	    private $factory;
+	    private $inputFilterManager;
+
+	    public function setUp()
+	    {
+	        $this->factory            = new InputFilterFactory();
+	        $this->inputFilterManager = new InputFilterPluginManager();
+	    }
+
+	    /**
+	     * @dataProvider requiredFields
+	     */
+	    public function testContainsRequiredFields($inputName)
+	    {
+	        $inputFilter = $this->create();
+	        $this->assertTrue($inputFilter->has($inputName));
+	        $this->assertTrue($inputFilter->get($inputName)->isRequired());
+	    }
+
+	    /**
+	     * @dataProvider optionalFields
+	     */
+	    public function testContainsOptionalFields($inputName)
+	    {
+	        $inputFilter = $this->create();
+	        $this->assertTrue($inputFilter->has($inputName));
+	        $this->assertFalse($inputFilter->get($inputName)->isRequired());
+	    }
+
+	    public function requiredFields()
+	    {
+	        return array(
+	            array(${3}),
+	        );
+	    }
+
+	    public function optionalFields()
+	    {
+	        return array(
+	            array(${4}),
+	        );
+	    }
+
+	    private function create()
+	    {
+	        return $this->factory->createService($this->inputFilterManager);
+	    }
+	}
+snippet createinput
+	private function create${1}Input($factory)
+	{
+	    return $factory->createInput([
+	        'name' => '${2}',
+	        ${3}
+	    ]);
+	}
+snippet mocklogger
+	new Logger(['writers' => [['name' => 'mock']]]);
+snippet feature
+	<?php
+	namespace ${1}\Feature;
+	${2}
+	use Neuron\QueryHandler\FeatureInterface;
+
+	class ${3} implements FeatureInterface
+	{
+	    public function getName()
+	    {
+	        return '${4}';
+	    }
+
+	    public function apply(array &$${5})
+	    {
+	        ${6}
+	    }
+	}
+snippet route
+	'${1}' ${2}=> [
+	    'type'    => '${3}',
+	    'options' => [
+	        'route'    => '/${4}',
+	        'defaults' => [
+	            ${5}
+	        ],
+	        ${6}
+	    ],
+	],
+snippet listener
+	<?php
+	namespace Showroom\${1}Listener${2};
+
+	use Showroom\Provider\Cache\CacheContainerFactory;
+	use Showroom\Provider\Cache\CacheContainer;
+	use Showroom\${3};
+	use Zend\EventManager\Event;
+	use Zend\EventManager\EventManagerInterface;
+	use Zend\EventManager\ListenerAggregateInterface;
+	use Zend\Cache\Storage\StorageInterface as Cache;
+	use Zend\Log\LoggerInterface;
+
+	class ${4}Listener implements ListenerAggregateInterface
+	{
+	    private $cache;
+	    private $cacheContainerFactory;
+	    private $logger;
+	    private $listeners = [];
+	    private $staleCache;
+
+	    public function __construct(Cache $cache, CacheContainerFactory $cacheContainerFactory, LoggerInterface $logger)
+	    {
+	        $this->cache                 = $cache;
+	        $this->cacheContainerFactory = $cacheContainerFactory;
+	        $this->logger                = $logger;
+	    }
+
+	    public function attach(EventManagerInterface $eventManager)
+	    {
+	        $eventManager->attach(${5}::EVENT_PRE_REQUEST, array($this, 'getCache'));
+	        $eventManager->attach(::EVENT_REQUEST_ERROR, array($this, 'getStaleCache'));
+	        $eventManager->attach(::EVENT_POST_REQUEST, array($this, 'writeCache'));
+	    }
+
+	    public function detach(EventManagerInterface $events)
+	    {
+	        foreach ($this->listeners as $index => $callback) {
+	            if ($events->detach($callback)) {
+	                unset($this->listeners[$index]);
+	            }
+	        }
+	    }
+
+	    public function getCache(Event $event)
+	    {
+	    }
+
+	    public function getStaleCache(Event $event)
+	    {
+	    }
+
+	    public function writeCache(Event $event)
+	    {
+	    }
+
+	    private function checkCache()
+	    {
+	        $cacheKey    = $this->getCacheKey();
+	        $cacheResult = $this->cache->getItem($cacheKey);
+	        if (!$cacheResult instanceof CacheContainer) {
+	            return false;
+	        }
+
+	        return $cacheResult;
+	    }
+
+	    public function getCacheKey()
+	    {
+	    }
+	}
