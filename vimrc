@@ -51,3 +51,6 @@ endif
 
 " Neocomplete
 let g:neocomplete#enable_at_startup = 1
+
+" PHPCS
+let g:syntastic_php_phpcs_args='--standard=PSR2'
