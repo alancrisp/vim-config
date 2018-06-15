@@ -1,0 +1,31 @@
+snippet card
+	{{ ui.card_open }}
+	    {{ ui.card_header('${1:Card Header}') }}
+	    {{ ui.card_body_open }}
+	        ${0}
+	    {{ ui.card_body_close }}
+	{{ ui.card_close }}
+snippet row
+	{{ ui.row_open('${1:Label}') }}
+	    ${0}
+	{{ ui.row_close }}
+snippet frow
+	{{ ui.row_open('${1:Label}') }}
+	    {{ ${2} }}
+	    {{ ui.control_open }}
+	        {{ ${3} }}
+	    {{ ui.control_close }}
+	{{ ui.row_close }}
+snippet cfrow
+	{% if '${1}' in ${2:displayFields} %}
+	    {{ ui.row_open('${3:Label}') }}
+	        {{ ${4} }}
+	        {{ ui.control_open }}
+	            {{ ${5} }}
+	        {{ ui.control_close }}
+	    {{ ui.row_close }}
+	{% endif %}
+snippet ifdf
+	{% if '${1}' in displayFields %}
+	    ${0}
+	{% endif %}

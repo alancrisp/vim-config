@@ -1,0 +1,34 @@
+snippet ent
+	App\Entity\\${1}:
+	    type: entity
+	    table: ${2}
+	    id:
+	        id:
+	            type: integer
+	            generator:
+	                strategy: ${3:AUTO}
+snippet f
+	${1:field}:
+	    type: ${2:string}
+snippet fc
+	${1:field}:
+	    column: ${2:column}
+	    type: ${3:string}
+snippet rel
+	${1:relation}:
+	    targetEntity: ${2:App\Entity}\\${3}
+	    joinColumn:
+	        name: ${4}
+	${0}
+snippet kvent
+	App\Entity\\${1}:
+	    type: entity
+	    table: ${2}
+	    id:
+	        id:
+	            type: integer
+	            generator:
+	                strategy: NONE
+	    fields:
+	        name:
+	            type: string

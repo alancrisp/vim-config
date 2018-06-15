@@ -1,0 +1,356 @@
+snippet clp
+	$this->${1:propery} = $$1;${0}
+snippet mot
+	public function testProvidesMenuOptionArray(): void
+	{
+	    $${1:status} = $this->createEntity(${2:123}, '${3:test}');
+	    $this->assertEquals(['id' => $2, 'name' => '$3'], $$1);
+	}
+snippet throw
+	throw new ${1:Exception}(${2});${0}
+snippet pubf
+	public function ${1}(${2}): ${3:void}
+	{
+	    ${0}
+	}
+snippet prof
+	protected function ${1}(${2}): ${3:void}
+	{
+	    ${0}
+	}
+snippet prif
+	private function ${1}(${2}): ${3:void}
+	{
+	    ${0}
+	}
+snippet ut
+	<?php
+	declare(strict_types=1);
+
+	namespace ${1:App}Test${2:fqns};
+
+	use $1$2\\${3:ClassName};
+	use PHPUnit\Framework\TestCase;
+
+	class $3Test extends TestCase
+	{
+	    ${0}
+	}
+snippet setup
+	protected function setUp(${1}): void
+	{
+	    ${0}
+	}
+snippet test
+	public function test${1}(): void
+	{
+	    ${0}
+	}
+snippet nt
+	public function test${1}CanBeNull(): void
+	{
+	    $${2:thing}->set${3:Thing}(null);
+	    $this->assertNull($$2->get$3());
+	}
+snippet dp
+	/**
+	 * @dataProvider ${1}
+	 */
+	 ${0}
+snippet factory
+	<?php
+	declare(strict_types=1);
+
+	namespace ${1};
+
+	use Psr\Container\ContainerInterface;
+
+	class ${2:Class}Factory
+	{
+	    public function __invoke(ContainerInterface $container): $2
+	    {
+	        return new $2(${0});
+	    }
+	}
+snippet factorytest
+	<?php
+	declare(strict_types=1);
+
+	namespace ${1:App}Test${2:fqns};
+
+	use $1$2\\${3:ClassName};
+	use $1$2\\$3Factory;
+	use PHPUnit\Framework\TestCase;
+	use Psr\Container\ContainerInterface;
+	${4}
+	class $3FactoryTest extends TestCase
+	{
+	    private $factory;
+	    private $container;
+
+	    protected function setUp()
+	    {
+	        $this->factory   = new $3Factory();
+	        $this->container = new Container();${5}
+	    }
+
+	    public function testCreates$3(): void
+	    {
+	        $factory = $this->factory;
+	        $this->assertInstanceOf($3::class, $factory($this->container));
+	    }
+	}
+snippet handler
+	<?php
+	declare(strict_types=1);
+
+	namespace ${1:App}${2:\Handler};
+	${5}
+	use Psr\Http\Message\ResponseInterface;
+	use Psr\Http\Message\ServerRequestInterface;
+	use Psr\Http\Server\RequestHandlerInterface;
+	use Zend\Diactoros\Response\\${4:Response};
+
+	class ${3}Handler implements RequestHandlerInterface
+	{
+	    ${6}
+
+	    public function __construct(${7})
+	    {
+	        ${8}
+	    }
+
+	    public function handle(ServerRequestInterface $request): ResponseInterface
+	    {
+	        ${0}
+	    }
+	}
+snippet middleware
+	<?php
+	declare(strict_types=1);
+
+	namespace ${1};
+	${3}
+	use Psr\Http\Message\ResponseInterface;
+	use Psr\Http\Message\ServerRequestInterface;
+	use Psr\Http\Server\MiddlewareInterface;
+	use Psr\Http\Server\RequestHandlerInterface;
+
+	class ${2}Middleware implements MiddlewareInterface
+	{
+	    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+	    {
+	        ${4}
+	    }
+	}
+snippet dal
+	<?php
+	declare(strict_types=1);
+
+	namespace ${1:Db}${2}
+
+	use Doctrine\DBAL\Connection;
+
+	class ${3}
+	{
+	    /**
+	     * @var Connection
+	     */
+	    private $dbConn;
+
+	    public function __construct(Connection $dbConn)
+	    {
+	        $this->dbConn = $dbConn;
+	    }
+
+	    ${0}
+	}
+snippet daltest
+	<?php
+	declare(strict_types=1);
+
+	namespace ${1:Db}Test${2:fqns};
+
+	use $1$2\\${3:ClassName}
+	use Doctrine\DBAL\Connection;
+	use PHPUnit\Framework\TestCase;
+
+	class $3Test extends TestCase
+	{
+	    private $dbConn;
+	    private $dal;
+
+	    protected function setUp(): void
+	    {
+	        $this->dbConn = $this->prophesize(Connection::class);
+	        $this->dal    = new $3($this->dbConn->reveal());
+	    }
+
+	    ${0}
+	}
+snippet interface
+	<?php
+	declare(strict_types=1);
+
+	namespace ${1};
+	${3}
+	interface ${2}
+	{
+	    ${4}
+	}
+snippet mocklogger
+	new Logger(['writers' => [['name' => 'mock']]]);
+snippet cls
+	<?php
+	declare(strict_types=1);
+
+	namespace ${1};
+	${3}
+	class ${2}
+	{
+	    ${0}
+	}
+snippet construct
+	public function __construct(${1})
+	{
+	    ${0}
+	}
+snippet format
+	private function format${1}(Project $project, array $menuOptions): array
+	{
+	    return $this->formatOptions($menuOptions['${2}'], $project->get${3}());
+	}
+snippet kvent
+	<?php
+	declare(strict_types=1);
+
+	namespace App\Entity;
+
+	class ${1} implements MenuOption
+	{
+	    private $id;
+	    private $name;
+
+	    public function getId(): int
+	    {
+	        return $this->id;
+	    }
+
+	    public function getName(): string
+	    {
+	        return $this->name;
+	    }
+
+	    public function getMenuOptionArray(): array
+	    {
+	        return [
+	            'id' => $this->id,
+	            'name' => $this->name,
+	        ];
+	    }
+	}
+snippet kventtest
+	<?php
+	declare(strict_types=1);
+
+	namespace AppTest\Entity;
+
+	use App\Entity\\${1:Entity};
+	use App\Entity\MenuOption;
+	use PHPUnit\Framework\TestCase;
+	use Zend\Hydrator\Reflection as ReflectionHydrator;
+
+	class $1Test extends TestCase
+	{
+	    public function testImplementsMenuOption(): void
+	    {
+	        $this->assertInstanceOf(MenuOption::class, new $1());
+	    }
+
+	    public function testProvidesId(): void
+	    {
+	        $${2:entity} = $this->createEntity(${3:123}, '${4:test}');
+	        $this->assertEquals($3, $$2->getId());
+	    }
+
+	    public function testProvidesName(): void
+	    {
+	        $$2 = $this->createEntity(${5:456}, '${6:test}');
+	        $this->assertEquals('$6', $$2->getName());
+	    }
+
+	    public function testProvidesMenuOptionArray(): void
+	    {
+	        $$2 = $this->createEntity(${7:789}, '${8:test}');
+	        $this->assertEquals(['id' => $7, 'name' => '$8'], $$2->getMenuOptionArray());
+	    }
+
+	    public function createEntity(int $id, string $name): $1
+	    {
+	        return (new ReflectionHydrator())->hydrate(
+	            [
+	                'id' => $id,
+	                'name' => $name,
+	            ],
+	            new $1()
+	        );
+	    }
+	}
+snippet lookup
+	<?php
+	declare(strict_types=1);
+
+	namespace Db\Lookup;
+
+	class ${1}Lookup
+	{
+	    const ID_DEFAULT = self::ID_NOT_REQUIRED;
+	    const ID_NOT_REQUIRED = 1;
+	    const ID_NOT_STARTED = 2;
+	}
+snippet kva
+	'${1:name}' => [
+		${0}
+	],
+snippet fils
+	'filters' => [
+	    ${0}
+	],
+snippet fil
+	[
+	    'name' => '${1}',
+	    'options' => [
+	        ${0}
+	    ],
+	],
+snippet infil
+	['name' => '${1}'],
+snippet vals
+	'validators' => [
+	    ${0}
+	],
+snippet val
+	[
+	    'name' => '${1}',
+	    'options' => [
+	        ${0}
+	    ],
+	],
+snippet inval
+	['name' => '${1}'],
+snippet get
+	public function get${1}(${2})${3}
+	{
+	    ${0}
+	}
+
+snippet set
+	public function set${1}(${2}): void
+	{
+	    ${0}
+	}
+
+snippet rp
+	return $this->${1};
+snippet useem
+	use Doctrine\ORM\EntityManager;
