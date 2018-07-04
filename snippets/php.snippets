@@ -356,3 +356,72 @@ snippet useem
 	use Doctrine\ORM\EntityManager;
 snippet dti
 	new DateTimeImmutable('${1}');
+snippet idin
+	'${1}' => [
+	    'required' => ${2:false},
+	    'filters' => [
+	        ['name' => 'tonull'],
+	        ['name' => 'toint'],
+	    ],
+	    'validators' => [
+	        ['name' => 'digits'],
+	    ],
+	],
+snippet stin
+	'${1}' => [
+	    'required' => ${2:false},
+	    'filters' => [
+	        ['name' => 'stringtrim'],
+	    ],
+	],
+snippet din
+	'${1}' => [
+	    'required' => ${2:false},
+	    'filters' => [
+	        ['name' => 'tonull'],
+	        ['name' => 'todate'],
+	    ],
+	    'validators' => [
+	        ['name' => 'date'],
+	    ],
+	],
+snippet bin
+	'${1}' => [
+	    'required' => ${2:false},
+	    'allow_empty' => true,
+	    'continue_if_empty' => true,
+	    'filters' => [
+	        [
+	            'name' => 'boolean',
+	            'options' => [
+	                'casting' => false,
+	                'type' => [
+	                    'zero',
+	                ],
+	            ],
+	        ],
+	    ],
+	],
+snippet el
+	[
+	    'spec' => [
+	        'name' => '${1}',
+	        'type' => '${2:text}',
+	        'options' => [
+	            'label' => '${3}',${4}
+	        ],
+	    ],
+	],
+snippet del
+	[
+	    'spec' => [
+	        'name' => '${1}',
+	        'type' => '${2:date}',
+	        'options' => [
+	            'label' => '${3}',${4}
+	        ],
+	        'attributes' => [
+	            'step' => 'any',${5}
+	        ],
+	    ],
+	],
