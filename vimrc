@@ -31,6 +31,8 @@ autocmd BufRead,BufNewFile * let tlist_sql_settings = 'sql;t:table'
 " Tags
 let g:easytags_opts = ['--exclude=.git --exclude=composer.phar']
 let g:easytags_async = 1
+let g:easytags_auto_highlight = 0
+let g:easytags_python_enabled = 1
 
 " Fix nolist being set when switching buffers with bufexplorer
 au BufEnter,BufNew,BufRead,BufNewFile * set list
