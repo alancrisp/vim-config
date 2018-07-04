@@ -26,7 +26,7 @@ let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Sort_Type = 'name'
 "let Tlist_Exit_OnlyWindow = 1
 autocmd BufRead,BufNewFile * let tlist_php_settings = 'php;c:class;f:function;d:constant;i:interface'
-autocmd BufRead,BufNewFile * let tlist_sql_settings = 'sql;t:table;F:field'
+autocmd BufRead,BufNewFile * let tlist_sql_settings = 'sql;t:table'
 
 " Tags
 let g:easytags_opts = ['--exclude=.git --exclude=composer.phar']
