@@ -21,6 +21,9 @@ au BufRead,BufNewFile *.twig set filetype=htmljinja
 " Trim trailing whitespace
 autocmd BufWritePre * %s/\s\+$//e
 
+" Legacy codebases
+autocmd BufRead,BufNewFile ~/repos/uac_dev/* let b:syntastic_mode='passive'
+
 " Taglist
 let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Sort_Type = 'name'
