@@ -20,6 +20,7 @@ au BufRead,BufNewFile *.twig set filetype=htmljinja
 
 " Legacy codebases
 autocmd BufRead,BufNewFile ~/repos/uac_dev/* let b:syntastic_mode='passive'
+autocmd BufRead,BufNewFile ~/repos/uac_dev/* set noexpandtab
 autocmd BufWritePre ~/repos/uac_dev/* let b:noStripWhitespace=1
 
 " Trim trailing whitespace
