@@ -18,11 +18,18 @@ call pathogen#infect()
 "au BufRead,BufNewFile *.tpl set filetype=html
 au BufRead,BufNewFile *.twig set filetype=htmljinja
 
-" Trim trailing whitespace
-autocmd BufWritePre * %s/\s\+$//e
-
 " Legacy codebases
 autocmd BufRead,BufNewFile ~/repos/uac_dev/* let b:syntastic_mode='passive'
+autocmd BufWritePre ~/repos/uac_dev/* let b:noStripWhitespace=1
+
+" Trim trailing whitespace
+autocmd BufWritePre * call StripTrailingWhitespace()
+fun! StripTrailingWhitespace()
+    if exists('b:noStripWhitespace')
+        return
+    endif
+    %s/\s\+$//e
+endfun
 
 " Taglist
 let Tlist_GainFocus_On_ToggleOpen = 1
