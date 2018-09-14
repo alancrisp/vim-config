@@ -80,3 +80,7 @@ let g:syntastic_php_phpcs_args='--standard=PSR2'
 " Arrange on load
 let g:csv_autocmd_arrange = 1
 let g:csv_autocmd_arrange_size = 1024*1024
+
+" NERDTree
+let NERDTreeMapActivateNode='<space>'
+:command NE NERDTreeToggle
