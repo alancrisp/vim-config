@@ -84,3 +84,10 @@ let g:csv_autocmd_arrange_size = 1024*1024
 " NERDTree
 let NERDTreeMapActivateNode='<space>'
 :command NE NERDTreeToggle
+
+" Caps lock
+for c in range(char2nr('A'), char2nr('Z'))
+  execute 'lnoremap ' . nr2char(c+32) . ' ' . nr2char(c)
+  execute 'lnoremap ' . nr2char(c) . ' ' . nr2char(c+32)
+endfor
+autocmd InsertLeave * set iminsert=0
