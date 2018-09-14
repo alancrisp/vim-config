@@ -15,6 +15,11 @@ filetype plugin indent on
 
 call pathogen#infect()
 
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> vs <C-w>s
+set splitbelow
+set splitright
+
 "au BufRead,BufNewFile *.tpl set filetype=html
 au BufRead,BufNewFile *.twig set filetype=htmljinja
 
