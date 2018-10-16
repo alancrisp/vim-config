@@ -91,3 +91,6 @@ for c in range(char2nr('A'), char2nr('Z'))
   execute 'lnoremap ' . nr2char(c) . ' ' . nr2char(c+32)
 endfor
 autocmd InsertLeave * set iminsert=0
+
+" PHP Manual (requires pman)
+autocmd FileType php set keywordprg=pman
