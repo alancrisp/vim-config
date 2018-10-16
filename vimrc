@@ -66,8 +66,8 @@ let g:closetag_filenames = '*.html,*.tpl,*.twig'
 " Ag
 if executable('ag')
 "  "let g:ackprg='ag --nogroup --nocolor --column'
-  let g:ackprg='ag --vimgrep'
-  let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
+  let g:ackprg='ag -U --vimgrep --path-to-ignore ~/.ignore'
+  let g:ctrlp_user_command='ag %s -U -l --nocolor -g "" --path-to-ignore ~/.ignore'
 endif
 
 " Neocomplete
