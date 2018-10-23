@@ -70,6 +70,9 @@ if executable('ag')
   let g:ctrlp_user_command='ag %s -U -l --nocolor -g "" --path-to-ignore ~/.ignore'
 endif
 
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
 " Neocomplete
 let g:neocomplete#enable_at_startup = 1
 
