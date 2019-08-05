@@ -91,13 +91,13 @@ snippet factorytest
 	    protected function setUp()
 	    {
 	        $this->factory   = new $3Factory();
-	        $this->container = new Container();${5}
+	        $this->container = $this->prophesize(ContainerInterface::class);
 	    }
 
 	    public function testCreates$3(): void
 	    {
 	        $factory = $this->factory;
-	        $this->assertInstanceOf($3::class, $factory($this->container));
+	        $this->assertInstanceOf($3::class, $factory($this->container->reveal()));
 	    }
 	}
 snippet handler
@@ -226,10 +226,10 @@ snippet kvent
 
 	namespace App\Entity;
 
-	class ${1} implements MenuOption
+	class ${1}
 	{
 	    private $id;
-	    private $name;
+	    private $name;${0}
 
 	    public function getId(): int
 	    {
@@ -240,14 +240,6 @@ snippet kvent
 	    {
 	        return $this->name;
 	    }
-
-	    public function getMenuOptionArray(): array
-	    {
-	        return [
-	            'id' => $this->id,
-	            'name' => $this->name,
-	        ];
-	    }
 	}
 snippet kventtest
 	<?php
@@ -256,17 +248,11 @@ snippet kventtest
 	namespace AppTest\Entity;
 
 	use App\Entity\\${1:Entity};
-	use App\Entity\MenuOption;
 	use PHPUnit\Framework\TestCase;
 	use Zend\Hydrator\Reflection as ReflectionHydrator;
 
 	class $1Test extends TestCase
 	{
-	    public function testImplementsMenuOption(): void
-	    {
-	        $this->assertInstanceOf(MenuOption::class, new $1());
-	    }
-
 	    public function testProvidesId(): void
 	    {
 	        $${2:entity} = $this->createEntity(${3:123}, '${4:test}');
@@ -277,13 +263,7 @@ snippet kventtest
 	    {
 	        $$2 = $this->createEntity(${5:456}, '${6:test}');
 	        $this->assertEquals('$6', $$2->getName());
-	    }
-
-	    public function testProvidesMenuOptionArray(): void
-	    {
-	        $$2 = $this->createEntity(${7:789}, '${8:test}');
-	        $this->assertEquals(['id' => $7, 'name' => '$8'], $$2->getMenuOptionArray());
-	    }
+	    }${0}
 
 	    public function createEntity(int $id, string $name): $1
 	    {
