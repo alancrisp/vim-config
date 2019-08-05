@@ -87,3 +87,12 @@ autocmd InsertLeave * set iminsert=0
 
 " PHP Manual (requires pman)
 autocmd FileType php set keywordprg=pman
+
+" Lightline
+set noshowmode
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ }
+if !has('gui_running')
+  set t_Co=256
+endif
