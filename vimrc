@@ -24,9 +24,9 @@ set splitright
 au BufRead,BufNewFile *.twig set filetype=htmljinja
 
 " Legacy codebases
-autocmd BufRead,BufNewFile ~/repos/uac_dev/* let b:syntastic_mode='passive'
-autocmd BufRead,BufNewFile ~/repos/uac_dev/* set noexpandtab
-autocmd BufWritePre ~/repos/uac_dev/* let b:noStripWhitespace=1
+autocmd BufRead,BufNewFile ~/repos/uac* let b:ale_enabled = 0
+autocmd BufRead,BufNewFile ~/repos/uac* set noexpandtab
+autocmd BufWritePre ~/repos/uac* let b:noStripWhitespace = 1
 
 " Trim trailing whitespace
 autocmd BufWritePre * call StripTrailingWhitespace()
@@ -55,10 +55,8 @@ let g:easytags_python_enabled = 1
 " Fix nolist being set when switching buffers with bufexplorer
 au BufEnter,BufNew,BufRead,BufNewFile * set list
 
-" Rubocop
-let g:syntastic_ruby_rubocop_exec = '~/.vim/rubocop-system'
-let g:syntastic_ruby_checkers = ['rubocop', 'mri']
-autocmd Filetype ruby setlocal tabstop=2 shiftwidth=2 softtabstop=2
+" Ale
+let g:ale_php_phpcs_standard='PSR2'
 
 " Closetag plugin
 let g:closetag_filenames = '*.html,*.tpl,*.twig'
@@ -75,9 +73,6 @@ nnoremap <Leader>a :Ack!<Space>
 
 " Neocomplete
 let g:neocomplete#enable_at_startup = 1
-
-" PHPCS
-let g:syntastic_php_phpcs_args='--standard=PSR2'
 
 " NERDTree
 let NERDTreeMapActivateNode='<space>'
