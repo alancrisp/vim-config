@@ -66,6 +66,7 @@ if executable('ag')
 "  "let g:ackprg='ag --nogroup --nocolor --column'
   let g:ackprg='ag -U --vimgrep --path-to-ignore ~/.ignore'
   let g:ctrlp_user_command='ag %s -U -l --nocolor -g "" --path-to-ignore ~/.ignore'
+  "let g:ctrlp_user_command=['.git/', 'git ls-files --cached --others  --exclude-standard %s']
 endif
 
 cnoreabbrev Ack Ack!
