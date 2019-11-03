@@ -61,3 +61,6 @@
 [submodule "bundle/vim-jinja"]
 	path = bundle/vim-jinja
 	url = git://github.com/mitsuhiko/vim-jinja.git
+[submodule "bundle/taglist-plus"]
+	path = bundle/taglist-plus
+	url = https://github.com/vim-scripts/taglist-plus.git
