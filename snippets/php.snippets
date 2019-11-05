@@ -1,11 +1,5 @@
 snippet clp
 	$this->${1:propery} = $$1;${0}
-snippet mot
-	public function testProvidesMenuOptionArray(): void
-	{
-	    $${1:status} = $this->createEntity(${2:123}, '${3:test}');
-	    $this->assertEquals(['id' => $2, 'name' => '$3'], $$1);
-	}
 snippet throw
 	throw new ${1:Exception}(${2});${0}
 snippet pubf
@@ -45,12 +39,6 @@ snippet test
 	public function test${1}(): void
 	{
 	    ${0}
-	}
-snippet nt
-	public function test${1}CanBeNull(): void
-	{
-	    $${2:thing}->set${3:Thing}(null);
-	    $this->assertNull($$2->get$3());
 	}
 snippet dp
 	/**
@@ -216,79 +204,6 @@ snippet construct
 	public function __construct(${1})
 	{
 	    ${0}
-	}
-snippet format
-	private function format${1}(Project $project, array $menuOptions): array
-	{
-	    return $this->formatOptions($menuOptions['${2}'], $project->get${3}());
-	}
-snippet kvent
-	<?php
-	declare(strict_types=1);
-
-	namespace App\Entity;
-
-	class ${1}
-	{
-	    private $id;
-	    private $name;${0}
-
-	    public function getId(): int
-	    {
-	        return $this->id;
-	    }
-
-	    public function getName(): string
-	    {
-	        return $this->name;
-	    }
-	}
-snippet kventtest
-	<?php
-	declare(strict_types=1);
-
-	namespace AppTest\Entity;
-
-	use App\Entity\\${1:Entity};
-	use PHPUnit\Framework\TestCase;
-	use Zend\Hydrator\Reflection as ReflectionHydrator;
-
-	class $1Test extends TestCase
-	{
-	    public function testProvidesId(): void
-	    {
-	        $${2:entity} = $this->createEntity(${3:123}, '${4:test}');
-	        $this->assertEquals($3, $$2->getId());
-	    }
-
-	    public function testProvidesName(): void
-	    {
-	        $$2 = $this->createEntity(${5:456}, '${6:test}');
-	        $this->assertEquals('$6', $$2->getName());
-	    }${0}
-
-	    public function createEntity(int $id, string $name): $1
-	    {
-	        return (new ReflectionHydrator())->hydrate(
-	            [
-	                'id' => $id,
-	                'name' => $name,
-	            ],
-	            new $1()
-	        );
-	    }
-	}
-snippet lookup
-	<?php
-	declare(strict_types=1);
-
-	namespace Db\Lookup;
-
-	class ${1}Lookup
-	{
-	    const ID_DEFAULT = self::ID_NOT_REQUIRED;
-	    const ID_NOT_REQUIRED = 1;
-	    const ID_NOT_STARTED = 2;
 	}
 snippet kva
 	'${1:name}' => [
