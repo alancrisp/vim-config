@@ -104,7 +104,8 @@ class Keymapper:
     """Map and unmap key commands for the Vim user interface.
     """
 
-    exclude = ["run", "close", "set_breakpoint", "eval_visual"]
+    exclude = ["run", "close", "set_breakpoint", "enable_breakpoint", "disable_breakpoint",
+               "toggle_breakpoint", "eval_visual"]
 
     def __init__(self):
         self.is_mapped = False
@@ -267,7 +268,7 @@ class FilePath:
 
         if ret.startswith('phar://'):
             return ret
-        elif ret.startswith('/'):
+        if ret.startswith('/'):
             return "file://"+ret
         return "file:///"+ret
 

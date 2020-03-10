@@ -1,7 +1,4 @@
 import base64
-import socket
-import sys
-import time
 import xml.etree.ElementTree as ET
 
 from . import log
@@ -159,7 +156,7 @@ class EvalResponse(ContextGetResponse):
         parts = cmd.split('-- ')
         missing_padding = len(parts[1]) % 4
         if missing_padding != 0:
-            parts[1] += '='* (4 - missing_padding)
+            parts[1] += '=' * (4 - missing_padding)
         return base64.b64decode(parts[1].encode('utf-8')).decode('utf-8')
 
 
@@ -251,10 +248,10 @@ class Api:
         send += ' -i ' + str(self.transID)
         if args:
             send += ' ' + args
-        log.Log("Command: "+send, log.Logger.DEBUG)
+        log.Log("Command: " + send, log.Logger.DEBUG)
         self.conn.send_msg(send)
         msg = self.conn.recv_msg()
-        log.Log("Response: "+msg, log.Logger.DEBUG)
+        log.Log("Response: " + msg, log.Logger.DEBUG)
         return res_cls(msg, cmd, args, self)
 
     def status(self):
@@ -273,7 +270,7 @@ class Api:
 
         name -- name of the feature, e.g. encoding
         """
-        return self.send_cmd('feature_get', '-n '+str(name),
+        return self.send_cmd('feature_get', '-n ' + str(name),
                              FeatureGetResponse)
 
     def feature_set(self, name, value):
@@ -296,7 +293,7 @@ class Api:
     def eval(self, code):
         """Tell the debugger to start or resume
         execution."""
-        code_enc = base64.encodestring(code.encode('utf-8'))
+        code_enc = base64.encodebytes(code.encode('utf-8'))
         args = '-- %s' % code_enc.decode('utf-8')
 
         """ The python engine incorrectly requires length.
@@ -341,10 +338,10 @@ class Api:
         """
         return self.send_cmd('stack_get', '', StackGetResponse)
 
-    def context_get(self, context=0):
+    def context_get(self, context=0, stack=0):
         """Get the context variables.
         """
-        return self.send_cmd('context_get', '-c %i' % int(context),
+        return self.send_cmd('context_get', '-c %i -d %i' % (int(context), int(stack)),
                              ContextGetResponse)
 
     def context_names(self):
@@ -380,6 +377,12 @@ class Api:
 
     def breakpoint_list(self):
         return self.send_cmd('breakpoint_list')
+
+    def breakpoint_disable(self, id):
+        return self.send_cmd('breakpoint_update', '-d %i -s disabled' % id, Response)
+
+    def breakpoint_enable(self, id):
+        return self.send_cmd('breakpoint_update', '-d %i -s enabled' % id, Response)
 
     def breakpoint_remove(self, id):
         """Remove a breakpoint by ID.
@@ -420,8 +423,11 @@ class ContextProperty:
                 if node.text is None:
                     self.value = ""
                 else:
-                    self.value = base64.decodebytes(
-                        node.text.encode("UTF-8")).decode("utf-8")
+                    try:
+                        self.value = base64.decodebytes(
+                            node.text.encode("UTF-8")).decode("utf-8")
+                    except UnicodeDecodeError:
+                        self.value = node.text
             elif not self.is_uninitialized() and not self.has_children:
                 self.value = node.text
 
@@ -483,7 +489,7 @@ class ContextProperty:
                 for c in children:
                     if c.tag == tagname:
                         idx += 1
-                        p = self._create_child(c, self, self.depth+1)
+                        p = self._create_child(c, self, self.depth + 1)
                         self.children.append(p)
                         if idx == self.num_declared_children:
                             p.mark_as_last_child()
@@ -536,7 +542,7 @@ class EvalProperty(ContextProperty):
                             "['%s']" % node.get('name')
                 else:
                     self.display_name = self.parent.display_name + \
-                        "->"+node.get('name')
+                        "->" + node.get('name')
             elif self.language == 'perl':
                 self.display_name = node.get('fullname')
             else:
@@ -551,26 +557,31 @@ class EvalProperty(ContextProperty):
                         "." + name
 
 
-""" Errors/Exceptions """
+# Errors/Exceptions
 class TimeoutError(Exception):
     pass
+
 
 class DBGPError(Exception):
     """Raised when the debugger returns an error message."""
     pass
 
+
 class CmdNotImplementedError(Exception):
     """Raised when the debugger returns an error message."""
     pass
+
 
 class EvalError(Exception):
     """Raised when some evaluated code is invalid."""
     pass
 
+
 class ResponseError(Exception):
     """An error caused by an unexpected response from the
     debugger (e.g. invalid format XML)."""
     pass
+
 
 class TraceError(Exception):
     """Raised when trace is out of domain."""

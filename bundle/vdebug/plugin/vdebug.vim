@@ -8,7 +8,7 @@
 "  Description: Multi-language debugger client for Vim (PHP, Ruby, Python,
 "               Perl, NodeJS)
 "   Maintainer: Jon Cairns <jon at joncairns.com>
-"      Version: 1.4.1
+"      Version: 2.0.0
 "               Inspired by the Xdebug plugin, which was originally written by
 "               Seung Woo Shin <segv <at> sayclub.com> and extended by many
 "               others.
@@ -88,15 +88,14 @@ let g:vdebug_options_defaults = {
 \    'marker_default' : '⬦',
 \    'marker_closed_tree' : '▸',
 \    'marker_open_tree' : '▾',
+\    'sign_breakpoint' : '▷',
+\    'sign_current' : '▶',
+\    'sign_disabled': '▌▌',
 \    'continuous_mode'  : 1,
 \    'background_listener' : 1,
 \    'auto_start' : 1,
-\    'window_commands' : {
-\        'DebuggerWatch' : 'vertical belowright new',
-\        'DebuggerStack' : 'belowright new',
-\        'DebuggerStatus' : 'belowright new'
-\    },
-\    'window_arrangement' : ['DebuggerWatch', 'DebuggerStack', 'DebuggerStatus']
+\    'simplified_status': 1,
+\    'layout': 'vertical',
 \}
 
 " Different symbols for non unicode Vims
@@ -104,6 +103,9 @@ if g:vdebug_force_ascii == 1
     let g:vdebug_options_defaults['marker_default'] = '*'
     let g:vdebug_options_defaults['marker_closed_tree'] = '+'
     let g:vdebug_options_defaults['marker_open_tree'] = '-'
+    let g:vdebug_options_defaults['sign_breakpoint'] = 'B>'
+    let g:vdebug_options_defaults['sign_current'] = '->'
+    let g:vdebug_options_defaults['sign_disabled'] = 'B|'
 endif
 
 " Create the top dog
@@ -111,7 +113,9 @@ python3 import vdebug.debugger_interface
 python3 debugger = vdebug.debugger_interface.DebuggerInterface()
 
 " Commands
-command! -nargs=? -complete=customlist,s:BreakpointTypes Breakpoint python3 debugger.set_breakpoint(<q-args>)
+command! -nargs=? VdebugChangeStack python3 debugger.change_stack(<q-args>)
+command! -nargs=? -complete=customlist,s:BreakpointTypes Breakpoint python3 debugger.cycle_breakpoint(<q-args>)
+command! -nargs=? -complete=customlist,s:BreakpointTypes SetBreakpoint python3 debugger.set_breakpoint(<q-args>)
 command! VdebugStart python3 debugger.run()
 command! -nargs=? BreakpointRemove python3 debugger.remove_breakpoint(<q-args>)
 command! BreakpointWindow python3 debugger.toggle_breakpoint_window()
@@ -120,6 +124,7 @@ command! -nargs=+ -complete=customlist,s:OptionNames VdebugOpt :call Vdebug_set_
 command! -nargs=+ VdebugPathMap :call Vdebug_path_map(<f-args>)
 command! -nargs=+ VdebugAddPathMap :call Vdebug_add_path_map(<f-args>)
 command! -nargs=? VdebugTrace python3 debugger.handle_trace(<q-args>)
+command! -nargs=? BreakpointStatus python3 debugger.breakpoint_status(<q-args>)
 
 if hlexists('DbgCurrentLine') == 0
     hi default DbgCurrentLine term=reverse ctermfg=White ctermbg=Red guifg=#ffffff guibg=#ff0000
@@ -135,8 +140,11 @@ if hlexists('DbgBreakptSign') == 0
 end
 
 " Signs and highlighted lines for breakpoints, etc.
-sign define current text=-> texthl=DbgCurrentSign linehl=DbgCurrentLine
-sign define breakpt text=B> texthl=DbgBreakptSign linehl=DbgBreakptLine
+function! s:DefineSigns()
+    exe 'sign define breakpt text=' . g:vdebug_options['sign_breakpoint'] . ' texthl=DbgBreakptSign linehl=DbgBreakptLine'
+    exe 'sign define current text=' . g:vdebug_options['sign_current'] . ' texthl=DbgCurrentSign linehl=DbgCurrentLine'
+    exe 'sign define breakpt_dis text=' . g:vdebug_options['sign_disabled'] . ' texthl=DbgDisabledSign linehl=DbgDisabledLine'
+endfunction
 
 function! s:BreakpointTypes(A,L,P)
     let arg_to_cursor = strpart(a:L,11,a:P)
@@ -170,6 +178,7 @@ function! Vdebug_load_options(options)
     let single_defined_params = s:Vdebug_get_options()
     let g:vdebug_options = extend(g:vdebug_options, single_defined_params)
 
+    call s:DefineSigns()
     python3 debugger.reload_options()
 endfunction
 
@@ -207,9 +216,13 @@ endfunction
 " This should be called if you want to update the keymappings after vdebug has
 " been loaded.
 function! Vdebug_load_keymaps(keymaps)
-    " Unmap existing keys, if applicable
+    " Unmap existing keys, if needed
+    " the keys should in theory exist because they are part of the defaults
     if has_key(g:vdebug_keymap, 'run')
         exe 'silent! nunmap '.g:vdebug_keymap['run']
+    endif
+    if has_key(g:vdebug_keymap, 'close')
+        exe 'silent! nunmap '.g:vdebug_keymap['close']
     endif
     if has_key(g:vdebug_keymap, 'set_breakpoint')
         exe 'silent! nunmap '.g:vdebug_keymap['set_breakpoint']
@@ -222,6 +235,7 @@ function! Vdebug_load_keymaps(keymaps)
     let g:vdebug_keymap = extend(g:vdebug_keymap_defaults, a:keymaps)
 
     " Mappings allowed in non-debug mode
+    " XXX: don't use keymaps not found in g:vdebug_keymap_defaults
     exe 'noremap '.g:vdebug_keymap['run'].' :python3 debugger.run()<cr>'
     exe 'noremap '.g:vdebug_keymap['close'].' :python3 debugger.close()<cr>'
     exe 'noremap '.g:vdebug_keymap['set_breakpoint'].' :python3 debugger.set_breakpoint()<cr>'
@@ -263,6 +277,7 @@ function! Vdebug_set_option(option, ...)
     endif
     echomsg 'Setting vdebug option "' . a:option . '" to: ' . a:1
     let g:vdebug_options[a:option] = a:1
+    call s:DefineSigns()
     python3 debugger.reload_options()
 endfunction
 
@@ -300,6 +315,8 @@ function! Vdebug_statusline()
 endfunction
 
 augroup Vdebug
+augroup END
+augroup VdebugOut
 autocmd VimLeavePre * python3 debugger.close()
 augroup END
 

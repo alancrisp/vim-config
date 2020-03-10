@@ -28,7 +28,7 @@ CONTENTS                                                      *Vdebug-contents*
         3.2 Python set up............................|VdebugSetUpPython|
         3.3 Ruby set up..............................|VdebugSetUpRuby|
         3.4 Perl set up..............................|VdebugSetUpPerl|
-        3.5 NodeJS set up............................|VdebugSetUpNodejs|
+        3.5 NodeJS 0.10 set up.......................|VdebugSetUpNodejs|
         3.6 TCL/Wish set up..........................|VdebugSetUpTcl|
     4. Usage.........................................|VdebugUsage|
         4.1 Starting the debugger....................|VdebugStart|
@@ -243,7 +243,7 @@ but to use Vdebug in conjunction with your Python scripts you will have to grab
 the "pydbgp" tool, created by ActiveState (who make the Komodo Edit/IDE
 software).
 
-To do this, go to http://code.activestate.com/komodo/remotedebugging/,
+To do this, go to https://code.activestate.com/komodo/remotedebugging/,
 download the Python client for your OS and extract it.
 
 Inside this package is a binary file called pydbgp that we can include when
@@ -271,6 +271,14 @@ If using unix you can use the `patch` command to apply the changes, e.g: >
     patch dbgp/client.py < client-7.1.0.patch
 <
 If you're still having trouble, drop me an email.
+
+For python3 you can also try to use
+https://github.com/agroszer/komodo-python3-dbgp which is basically a repack of
+the pydbgp from activestate to make it usable with pip
+
+Try installing and using it like this: >
+    pip install komodo-python3-dbgp
+<
 
 ------------------------------------------------------------------------------
 3.3 Ruby set up                                              *VdebugSetUpRuby*
@@ -353,7 +361,7 @@ If you haven't started Vdebug you will get a message saying that it can't
 connect. This means you've set it up correctly.
 
 ------------------------------------------------------------------------------
-3.5 NodeJS set up                                          *VdebugSetUpNodejs*
+3.5 NodeJS 0.10 set up                                     *VdebugSetUpNodejs*
 
 NodeJS is the easiest language to set up for debugging with Vdebug, as
 Activestate have made the debugger engine available through npm. The only catch
@@ -835,21 +843,26 @@ retain option settings by adding them to your vimrc.
 5.2 List of options                                         *VdebugOptionList*
 
 The default options look like this: >
-    let g:vdebug_options= {
-    \    "port" : 9000,
-    \    "server" : '',
-    \    "timeout" : 20,
-    \    "on_close" : 'detach',
-    \    "break_on_open" : 1,
-    \    "ide_key" : '',
-    \    "path_maps" : {},
-    \    "debug_window_level" : 0,
-    \    "debug_file_level" : 0,
-    \    "debug_file" : "",
-    \    "watch_window_style" : 'expanded',
-    \    "marker_default" : '⬦',
-    \    "marker_closed_tree" : '▸',
-    \    "marker_open_tree" : '▾'
+    let g:vdebug_options = {
+    \    'port' : 9000,
+    \    'timeout' : 20,
+    \    'server' : '',
+    \    'on_close' : 'stop',
+    \    'break_on_open' : 1,
+    \    'ide_key' : '',
+    \    'debug_window_level' : 0,
+    \    'debug_file_level' : 0,
+    \    'debug_file' : '',
+    \    'path_maps' : {},
+    \    'watch_window_style' : 'expanded',
+    \    'marker_default' : '⬦',
+    \    'marker_closed_tree' : '▸',
+    \    'marker_open_tree' : '▾',
+    \    'sign_breakpoint' : '▷',
+    \    'sign_current' : '▶',
+    \    'continuous_mode'  : 1,
+    \    'simplified_status': 1,
+    \    'layout': 'vertical',
     \}
 <
 You can either use the multi-line notation like above, or set individual keys
@@ -908,7 +921,7 @@ g:vdebug_options.ide_key (default = empty)
     restricts the connections to those that have a matching key. See
     |VdebugIDEKey| for more information.
 
-                                                       *VdebugOptions-path_maps*
+                                                     *VdebugOptions-path_maps*
 g:vdebug_options.path_maps (default = {})
     This is only used for debugging a script on a remote machine. This is used
     to map remote file paths to local file paths, as they are very likely to be
@@ -959,12 +972,64 @@ g:vdebug_options.marker_open_tree (default = '▾')
     children, and the tree is currently open. A "-" symbol is used if multi
     byte support is not enabled.
 
-                                              *VdebugOptions-continuous_mode*
-g:vdebug_options.continuous_mode (default = 0)
+                                               *VdebugOptions-sign_breakpoint*
+                                                  *VdebugOptions-sign_current*
+g:vdebug_options.sign_breakpoint (default = '▷')
+g:vdebug_options.sign_current (default = '▶')
+    Set the markers used in the left-hand page margin to denote a stored
+    breakpoint line or the current line being debugged, respectively.
+
+                                               *VdebugOptions-continuous_mode*
+g:vdebug_options.continuous_mode (default = 1)
     If enabled, Vdebug will start listening immediately after a debugging
     session has finished, allowing for constant debugging across separate
     requests. Press <F6> during a debugging session to stop this, or <Ctrl-C>
     when Vdebug is listening.
+
+g:vdebug_options.simplified_status (default = 1)
+    When enabled the status will be shown in 1 line, if disabled you get a more
+    verbose status output
+
+g:vdebug_options.layout (default = 'vertical')
+    When layout is vertical, the debug session tab will have a vertical split
+    between the source window and the DebuggerStatus, DebuggerStack and
+    DebuggerWatch.
+
+    +------------------------------------+-----------------------------------+
+    |                                    |    DebuggerStatus                 |
+    |                                    +-----------------------------------+
+    |                                    |    DebuggerStack                  |
+    |                                    |                                   |
+    |                                    |                                   |
+    |      SourceWindow                  +-----------------------------------+
+    |                                    |    DebuggerWatch                  |
+    |                                    |                                   |
+    |                                    |                                   |
+    |                                    |                                   |
+    |                                    |                                   |
+    |                                    |                                   |
+    |                                    |                                   |
+    +------------------------------------+-----------------------------------+
+
+    When the layout is horizontal, the debug session tab will have a horizontal
+    split between the source window and the DebuggerStatus and DebuggerStack
+    will be split on the left next to the DebuggerWatch.
+
+    +------------------------------------------------------------------------+
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    |                              SourceWindow                              |
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    |                                                                        |
+    +------------------------------------+-----------------------------------+
+    |    DebuggerStatus                  |                                   |
+    +------------------------------------+    DebuggerWatch                  |
+    |    DebuggerStack                   |                                   |
+    |                                    |                                   |
+    +------------------------------------+-----------------------------------+
 
 ==============================================================================
 6. Key maps                                                       *VdebugKeys*
