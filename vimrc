@@ -13,8 +13,6 @@ set autoindent
 
 filetype plugin indent on
 
-call pathogen#infect()
-
 nnoremap <silent> vv <C-w>v
 nnoremap <silent> vs <C-w>s
 set splitbelow

@@ -1,75 +1,39 @@
-[submodule "bundle/ack.vim"]
-	path = bundle/ack.vim
-	url = https://github.com/mileszs/ack.vim.git
-[submodule "bundle/neocomplete.vim"]
-	path = bundle/neocomplete.vim
-	url = https://github.com/Shougo/neocomplete.vim.git
-[submodule "bundle/vim-gitgutter"]
-	path = bundle/vim-gitgutter
-	url = git://github.com/airblade/vim-gitgutter.git
-[submodule "bundle/nerdtree"]
-	path = bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-[submodule "bundle/bufexplorer.vim"]
-	path = bundle/bufexplorer.vim
+[submodule "pack/plugins/start/bufexplorer"]
+	path = pack/plugins/start/bufexplorer
 	url = https://github.com/jlanzarotta/bufexplorer.git
-[submodule "bundle/commentary.vim"]
-	path = bundle/commentary.vim
-	url = https://github.com/tpope/vim-commentary.git
-[submodule "bundle/easytags"]
-	path = bundle/easytags
-	url = https://github.com/xolox/vim-easytags.git
-[submodule "bundle/file_line"]
-	path = bundle/file_line
-	url = https://github.com/bogado/file-line.git
-[submodule "bundle/vim-jinja"]
-	path = bundle/vim-jinja
-	url = git://github.com/mitsuhiko/vim-jinja.git
-[submodule "bundle/taglist-plus"]
-	path = bundle/taglist-plus
-	url = https://github.com/vim-scripts/taglist-plus.git
-[submodule "bundle/lightline.vim"]
-	path = bundle/lightline.vim
-	url = https://github.com/itchyny/lightline.vim.git
-[submodule "bundle/Dockerfile.vim"]
-	path = bundle/Dockerfile.vim
-	url = https://github.com/ekalinin/Dockerfile.vim.git
-[submodule "bundle/tabular"]
-	path = bundle/tabular
-	url = git://github.com/godlygeek/tabular.git
-[submodule "bundle/vim-fugitive"]
-	path = bundle/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive.git
-[submodule "bundle/ale"]
-	path = bundle/ale
-	url = https://github.com/dense-analysis/ale.git
-[submodule "bundle/bufexplorer.vim"]
-	path = bundle/bufexplorer.vim
-	url = https://github.com/jlanzarotta/bufexplorer.git
-[submodule "bundle/commentary.vim"]
-	path = bundle/commentary.vim
-	url = https://github.com/tpope/vim-commentary.git
-[submodule "bundle/easytags"]
-	path = bundle/easytags
-	url = https://github.com/xolox/vim-easytags.git
-[submodule "bundle/file_line"]
-	path = bundle/file_line
-	url = https://github.com/bogado/file-line.git
-[submodule "bundle/vim-jinja"]
-	path = bundle/vim-jinja
-	url = git://github.com/mitsuhiko/vim-jinja.git
-[submodule "bundle/taglist-plus"]
-	path = bundle/taglist-plus
-	url = https://github.com/vim-scripts/taglist-plus.git
-[submodule "bundle/lightline.vim"]
-	path = bundle/lightline.vim
-	url = https://github.com/itchyny/lightline.vim.git
-[submodule "bundle/ctrlp.vim"]
-	path = bundle/ctrlp.vim
+[submodule "pack/plugins/start/ctrlp"]
+	path = pack/plugins/start/ctrlp
 	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule "vdebug"]
-	path = bundle/vdebug
-	url = https://github.com/vim-vdebug/vdebug.git
-[submodule "bundle/tlib_vim"]
-	path = bundle/tlib_vim
-	url = https://github.com/tomtom/tlib_vim.git
+[submodule "pack/plugins/start/fugitive"]
+	path = pack/plugins/start/fugitive
+	url = https://tpope.io/vim/fugitive.git
+[submodule "pack/plugins/start/nerdtree"]
+	path = pack/plugins/start/nerdtree
+	url = https://github.com/preservim/nerdtree.git
+[submodule "pack/plugins/start/ack"]
+	path = pack/plugins/start/ack
+	url = https://github.com/mileszs/ack.vim.git
+[submodule "pack/plugins/start/file_line"]
+	path = pack/plugins/start/file_line
+	url = https://github.com/bogado/file-line.git
+[submodule "pack/plugins/start/lightline"]
+	path = pack/plugins/start/lightline
+	url = https://github.com/itchyny/lightline.vim.git
+[submodule "pack/plugins/start/pgsql"]
+	path = pack/plugins/start/pgsql
+	url = https://github.com/lifepillar/pgsql.vim.git
+[submodule "pack/plugins/start/taglist"]
+	path = pack/plugins/start/taglist
+	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule "pack/plugins/start/vim-gitgutter"]
+	path = pack/plugins/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "pack/plugins/start/vim-easytags"]
+	path = pack/plugins/start/vim-easytags
+	url = https://github.com/xolox/vim-easytags.git
+[submodule "pack/plugins/start/ale"]
+	path = pack/plugins/start/ale
+	url = https://github.com/dense-analysis/ale.git
+[submodule "pack/plugins/start/vim-misc"]
+	path = pack/plugins/start/vim-misc
+	url = https://github.com/xolox/vim-misc.git
