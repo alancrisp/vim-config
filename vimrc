@@ -95,3 +95,6 @@ let g:lightline = {
 if !has('gui_running')
   set t_Co=256
 endif
+
+" UltiSnips
+let g:UltiSnipsEnableSnipMate=1

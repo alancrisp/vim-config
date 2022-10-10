@@ -37,3 +37,6 @@
 [submodule "pack/plugins/start/vim-misc"]
 	path = pack/plugins/start/vim-misc
 	url = https://github.com/xolox/vim-misc.git
+[submodule "pack/plugins/start/ultisnips"]
+	path = pack/plugins/start/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
