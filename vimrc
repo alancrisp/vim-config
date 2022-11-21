@@ -54,7 +54,7 @@ let g:easytags_python_enabled = 1
 au BufEnter,BufNew,BufRead,BufNewFile * set list
 
 " Ale
-let g:ale_php_phpcs_standard='PSR2'
+let g:ale_php_phpcs_standard='PSR12'
 
 " Closetag plugin
 let g:closetag_filenames = '*.html,*.tpl,*.twig'
