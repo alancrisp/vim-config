@@ -43,3 +43,6 @@
 [submodule "pack/plugins/start/vim-jinja"]
 	path = pack/plugins/start/vim-jinja
 	url = https://github.com/mitsuhiko/vim-jinja.git
+[submodule "pack/plugins/start/vdebug"]
+	path = pack/plugins/start/vdebug
+	url = https://github.com/vim-vdebug/vdebug.git
