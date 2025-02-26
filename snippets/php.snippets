@@ -98,10 +98,10 @@ snippet handler
 
 	namespace ${1:App}${2:\Handler};
 	${5}
+	use Laminas\Diactoros\Response\\${4:Response};
 	use Psr\Http\Message\ResponseInterface;
 	use Psr\Http\Message\ServerRequestInterface;
 	use Psr\Http\Server\RequestHandlerInterface;
-	use Zend\Diactoros\Response\\${4:Response};
 
 	class ${3}Handler implements RequestHandlerInterface
 	{
