@@ -38,7 +38,6 @@ endfun
 " Taglist
 let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Sort_Type = 'name'
-"let Tlist_Exit_OnlyWindow = 1
 autocmd BufRead,BufNewFile * let Tlist_Use_Right_Window = 1
 autocmd BufRead,BufNewFile * let tlist_php_settings = 'php;c:class;f:function;d:constant;i:interface'
 autocmd BufRead,BufNewFile * let tlist_sql_settings = 'sql;t:table'
