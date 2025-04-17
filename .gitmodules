@@ -46,3 +46,6 @@
 [submodule "pack/plugins/start/vdebug"]
 	path = pack/plugins/start/vdebug
 	url = https://github.com/vim-vdebug/vdebug.git
+[submodule "pack/plugins/start/fzf.vim"]
+	path = pack/plugins/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
