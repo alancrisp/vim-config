@@ -131,3 +131,12 @@ let g:vdebug_options.path_maps = {
     \"/usr/share/provdb": "/home/acrisp/repos/provdb",
     \"/usr/share/myaccount": "/home/acrisp/repos/myaccount"
 \}
+
+" LSP
+packadd lsp
+call LspAddServer([#{
+            \   name: 'php',
+            \   filetype: 'php',
+            \   path: 'phpactor',
+            \   args: ['language-server']
+            \}])
