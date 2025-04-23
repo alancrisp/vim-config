@@ -134,7 +134,7 @@ let g:vdebug_options.path_maps = {
 " LSP
 packadd lsp
 call LspAddServer([#{
-            \   name: 'php',
+            \   name: 'phpactor',
             \   filetype: 'php',
             \   path: 'phpactor',
             \   args: ['language-server']
