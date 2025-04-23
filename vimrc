@@ -21,11 +21,6 @@ set splitright
 "au BufRead,BufNewFile *.tpl set filetype=html
 au BufRead,BufNewFile *.twig set filetype=htmljinja
 
-" Legacy codebases
-autocmd BufRead,BufNewFile ~/repos/uac* let b:ale_enabled = 0
-autocmd BufWritePre ~/repos/uac* let b:noStripWhitespace = 1
-autocmd BufRead,BufNewFile ~/repos/myaccount* let b:ale_enabled = 0
-
 " Trim trailing whitespace
 autocmd BufWritePre * call StripTrailingWhitespace()
 fun! StripTrailingWhitespace()
@@ -125,10 +120,7 @@ endif
 let g:vdebug_options.port = 9003
 let g:vdebug_options.ide_key = 'DEBUG'
 let g:vdebug_options.path_maps = {
-    \"/app": getcwd(),
-    \"/usr/share/uac": "/home/acrisp/repos/uac",
-    \"/usr/share/provdb": "/home/acrisp/repos/provdb",
-    \"/usr/share/myaccount": "/home/acrisp/repos/myaccount"
+    \"/app": getcwd()
 \}
 
 " LSP
