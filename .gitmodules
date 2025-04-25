@@ -62,3 +62,6 @@
 [submodule "pack/plugins/start/gruvbox"]
 	path = pack/plugins/start/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
+[submodule "pack/plugins/start/breezy"]
+	path = pack/plugins/start/breezy
+	url = https://github.com/fneu/breezy.git
