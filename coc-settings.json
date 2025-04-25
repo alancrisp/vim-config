@@ -1,0 +1,4 @@
+{
+    "phpactor.enable": true,
+    "phpactor.path": "~/.local/bin/phpactor"
+}
