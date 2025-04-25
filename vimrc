@@ -68,6 +68,7 @@ nnoremap <Leader>a :Ack!<Space>
 " FZF
 noremap <silent> <leader>f :Lines<CR>
 noremap <silent> <leader>g :GFiles<CR>
+noremap <silent> <leader>p :Files<CR>
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
