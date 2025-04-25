@@ -8,7 +8,7 @@ set listchars=tab:>-
 set laststatus=2
 set ts=4
 set scrolloff=5
-set bg=light
+"set bg=light
 set autoindent
 
 filetype plugin indent on
@@ -22,6 +22,10 @@ autocmd FileType php set iskeyword+=$
 
 "au BufRead,BufNewFile *.tpl set filetype=html
 au BufRead,BufNewFile *.twig set filetype=htmljinja
+
+" Colorscheme
+set termguicolors
+colorscheme bat
 
 " Trim trailing whitespace
 autocmd BufWritePre * call StripTrailingWhitespace()
