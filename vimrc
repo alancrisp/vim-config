@@ -25,7 +25,7 @@ au BufRead,BufNewFile *.twig set filetype=htmljinja
 
 " Colorscheme
 set termguicolors
-colorscheme bat
+colorscheme gruvbox
 
 " Trim trailing whitespace
 autocmd BufWritePre * call StripTrailingWhitespace()
