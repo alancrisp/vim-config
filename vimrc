@@ -123,30 +123,3 @@ let g:vdebug_options.ide_key = 'DEBUG'
 let g:vdebug_options.path_maps = {
     \"/app": getcwd()
 \}
-
-" LSP
-packadd lsp
-call LspAddServer([#{
-            \   name: 'phpactor',
-            \   filetype: 'php',
-            \   path: 'phpactor',
-            \   args: ['language-server']
-            \}])
-"call LspAddServer([#{
-"            \   name: 'yaml-language-server',
-"            \   filetype: 'yaml',
-"            \   path: '/home/acrisp/.config/yarn/global/node_modules/.bin/yaml-language-server',
-"            \   args: ['--stdio'],
-"            \   workspaceConfig: #{
-"            \       yaml: #{
-"            \           schemas: {
-"            \               "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": [
-"            \                   "**/*docker-compose*.yaml"
-"            \               ],
-"            \               "https://json.schemastore.org/chart.json": [
-"            \                   "**values*.yaml"
-"            \               ]
-"            \           }
-"            \       }
-"            \   }
-"            \}])
