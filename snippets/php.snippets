@@ -333,3 +333,31 @@ snippet dst
 	declare(strict_types=1);
 snippet sup
 	@SuppressWarnings(PHPMD.$0)
+snippet apihandler
+	<?php
+
+	declare(strict_types=1);
+
+	namespace ${1};
+
+	use Ask4\UAC\ResponseFactory;
+	use Symfony\Component\HttpFoundation\Request;
+	use Symfony\Component\HttpFoundation\Response;
+
+	class ${2}Handler
+	{
+	    /**
+	     * @var ResponseFactory
+	     */
+	    private $responseFactory;
+
+	    public function __construct(ResponseFactory $responseFactory${4})
+	    {
+	        $this->responseFactory = $responseFactory;${3}
+	    }
+
+	    public function handle(Request $request): Response
+	    {
+	        ${0}
+	    }
+	}
