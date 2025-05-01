@@ -62,3 +62,6 @@
 [submodule "pack/plugins/start/breezy"]
 	path = pack/plugins/start/breezy
 	url = https://github.com/fneu/breezy.git
+[submodule "pack/plugins/start/vim-monokai"]
+	path = pack/plugins/start/vim-monokai
+	url = https://github.com/ku1ik/vim-monokai.git
