@@ -1,4 +1,12 @@
 {
     "phpactor.enable": true,
-    "phpactor.path": "~/.local/bin/phpactor"
+    "phpactor.path": "~/.local/bin/phpactor",
+    "languageserver": {
+        "helm": {
+            "command": "helm_ls",
+            "args": ["serve"],
+            "filetypes": ["helm", "helmfile"],
+            "rootPatterns": ["Chart.yaml"]
+        }
+    }
 }
