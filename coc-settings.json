@@ -8,5 +8,8 @@
             "filetypes": ["helm", "helmfile"],
             "rootPatterns": ["Chart.yaml"]
         }
+    },
+    "yaml.schemas": {
+        "kubernetes": "**/*.yaml"
     }
 }
