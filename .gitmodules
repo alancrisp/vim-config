@@ -68,3 +68,6 @@
 [submodule "pack/plugins/start/vim-helm"]
 	path = pack/plugins/start/vim-helm
 	url = https://github.com/towolf/vim-helm.git
+[submodule "pack/plugins/start/phpactor"]
+	path = pack/plugins/start/phpactor
+	url = https://github.com/phpactor/phpactor.git
