@@ -10,6 +10,6 @@
         }
     },
     "yaml.schemas": {
-        "kubernetes": "**/*.yaml"
+        "kubernetes": "templates/*.yaml"
     }
 }
