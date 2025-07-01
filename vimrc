@@ -9,6 +9,7 @@ set laststatus=2
 set ts=4
 set scrolloff=5
 set autoindent
+set bg=dark
 
 filetype plugin indent on
 
