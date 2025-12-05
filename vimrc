@@ -163,3 +163,5 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
+source ~/.vimrc-local
+
