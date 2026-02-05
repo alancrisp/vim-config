@@ -71,3 +71,6 @@
 [submodule "pack/plugins/start/phpactor"]
 	path = pack/plugins/start/phpactor
 	url = https://github.com/phpactor/phpactor.git
+[submodule "/home/acrisp/.vim/pack/plugins/start/vim-tmux-navigator"]
+	path = /home/acrisp/.vim/pack/plugins/start/vim-tmux-navigator
+	url = git@github.com:christoomey/vim-tmux-navigator.git
