@@ -57,6 +57,7 @@ au BufEnter,BufNew,BufRead,BufNewFile * set list
 let g:ale_php_phpcs_standard='PSR12'
 let g:ale_php_phpstan_executable='vendor/bin/phpstan'
 let g:ale_php_phpstan_configuration='phpstan.neon'
+let g:ale_disable_lsp = 1
 
 " Closetag plugin
 let g:closetag_filenames = '*.html,*.tpl,*.twig'
