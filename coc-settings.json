@@ -1,6 +1,14 @@
 {
     "phpactor.enable": true,
     "phpactor.path": "~/.local/bin/phpactor",
+    "phpactor.config": {
+        "core.trust": {
+            "trust": {
+                "~/.config/phpactor": true
+            },
+            "path": "~/.local/share/phpactor/trust.json"
+        }
+    },
     "languageserver": {
         "helm": {
             "command": "helm_ls",
