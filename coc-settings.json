@@ -19,5 +19,8 @@
     },
     "yaml.schemas": {
         "kubernetes": "/templates/*.yaml"
-    }
+    },
+    "pyright.inlayHints.functionReturnTypes": false,
+    "pyright.inlayHints.variableTypes": false,
+    "pyright.inlayHints.parameterTypes": false
 }
